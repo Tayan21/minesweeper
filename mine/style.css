@@ -1,0 +1,35 @@
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 220px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cell.revealed {
+  background-color: #eee;
+}
+
+.cell.mine {
+  background-color: red;
+  color: white;
+}
+
+.cell:hover {
+  background-color: #ddd;
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minesweeper</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(10, 20px);
+            grid-template-rows: repeat(10, 20px);
+            gap: 1px;
+        }
+
+        .cell {
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .cell.flagged {
+            background-color: #ffc107;
+        }
+
+        .cell.mine {
+            background-color: #f44336;
+        }
+
+        .cell.revealed {
+            background-color: #fff;
+        }
+
+        .cell.zero {
+            color: transparent;
+        }
+
+        .cell.one {
+            color: blue;
+        }
+
+        .cell.two {
+            color: green;
+        }
+
+        .cell.three {
+            color: red;
+        }
+
+        .cell.four {
+            color: darkblue;
+        }
+
+        .cell.five {
+            color: darkred;
+        }
+
+        .cell.six {
+            color: turquoise;
+        }
+
+        .cell.seven {
+            color: black;
+        }
+
+        .cell.eight {
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <div class="board"></div>
+
+    <script>
+        const boardSize = 10;
+        const mineCount = 15;
+
+        const boardElement = document.querySelector('.board');
+        let board = [];
+
+        function init() {
+            for (let row = 0; row < boardSize; row++) {
+                board[row] = [];
+                for (let col = 0; col < boardSize; col++) {
+                    board[row][col] = {
+                        mine: false,
+                        revealed: false,
+                        flagged: false
+                    };
+                }
+            }
+
+            for (let i = 0; i < mineCount; i++) {
+                let row, col;
+                do {
+                    row = Math.floor(Math.random() * boardSize);
+                    col = Math.floor(Math.random() * boardSize);
+                } while (board[row][col].mine);
+                board[row][col].mine = true;
+            }
+
+            render();
+        }
+
+        function render() {
+            boardElement.innerHTML = '';
+            for (let row = 0; row < boardSize; row++) {
+                for (let col = 0; col < boardSize; col++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    if (board[row][col].flagged) {
+                        cell.classList.add('flagged');
+                        cell.textContent = '🚩';
+                    } else if (board[row][col].revealed) {
+                        if (board[row][col].mine) {
+                            cell.classList.add('mine');
+                            cell.textContent = '💣';
+                        } else {
+                            cell.classList.add('revealed');
+                            const count = countAdjacentMines(row, col);
+                            if (count === 0) {
+                                cell.classList.add('zero');
+                            } else {
+                                cell.classList.add(countToClass(count));
+                                cell.textContent = count;
+                            }
+                        }
+                    }
+                    cell.addEventListener('click', () => reveal(row, col));
+                    cell.addEventListener('contextmenu', (event) => {
+                        event.preventDefault();
+                        toggleFlag(row, col);
+                    });
+                    boardElement.appendChild(cell);
+                }
+            }
+        }
+
+        function countAdjacentMines(row, col)
