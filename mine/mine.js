@@ -5,6 +5,7 @@ const numMines = 10;
 let board = [];
 let numRevealed = 0;
 let gameOver = false;
+let countOfMoves = 0;
 
 function createBoard() {
   // Initialize board with all cells as unrevealed
@@ -116,6 +117,8 @@ function renderBoard() {
       cellElement.className = "cell";
       cellElement.addEventListener("click", () => revealCell(row, col));
       cellElement.addEventListener("click", () => {
+        countOfMoves++;
+        console.log(count)
         if (board[row][col].revealed) {
           cellElement.classList.add("revealed");
           revealOtherCells();
