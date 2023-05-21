@@ -1,29 +1,40 @@
 let numRows = 10;
 let numCols = 10;
 let numMines = 10;
+const container = document.createElement('div');
+container.classList.add('container')
+document.body.append(container)
+
 const boardElement = document.createElement("div");
-document.body.append(boardElement);
+
 let levels = ["Easy", "Medium", "Hard"];
 
-let time = document.createElement('h3');
+let time = document.createElement('div');
 time.classList.add('time')
-document.body.append(time)
 
-let moves = document.createElement('div')
-moves.classList.add('moves')
-document.body.append(moves)
+
+let moves = document.createElement('div');
+moves.innerHTML = `Moves:`;
+moves.classList.add('moves');
+
+
+let button = document.createElement('button');
+button.classList.add('button');
+button.innerHTML = 'New Game';
+
+container.append(moves);
+container.append(time);
+container.append(boardElement);
+container.append(button);
 
 let nightMode = document.createElement('div');
 nightMode.classList.add('night-mode');
 let toggleCircle = document.createElement('div');
 toggleCircle.classList.add('toggle-circle');
 nightMode.append(toggleCircle);
-document.body.append(nightMode)
+document.body.prepend(nightMode)
 
-let button = document.createElement('button');
-button.classList.add('button')
-button.innerHTML = 'New Game'
-document.body.append(button)
+
 
 
 let board = [];

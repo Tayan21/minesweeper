@@ -1,12 +1,33 @@
-#board {
-  display: flex;
-  flex-wrap: wrap;
-  width: 220px;
-  margin: 0 auto;
+.board {
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
-h1 {
-  text-align: center; 
+.container {
+  min-width: 220px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto;
+  margin: 10px auto;
+  justify-content: space-between;
+  width: fit-content;
+  flex-wrap: wrap;
+}
+
+.time {
+ text-align: end;
+}
+
+.moves {
+
+}
+
+.button {
+display: block;
+ width: fit-content;
+ grid-column-start: 1;
+ grid-column-end: 3;
+ margin: 10px auto;
 }
 
 .board {
